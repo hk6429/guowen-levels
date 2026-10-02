@@ -35,3 +35,13 @@ npm run dev   # 產索引並在 http://localhost:5173 預覽
 Cloudflare Pages 與 Netlify：build command `node scripts/build-index.mjs`，輸出目錄 `/`。不使用 Vercel。部署後以 `curl` 回讀 `lessons/index.json` 比對 md5。
 
 網站 `robots.txt` 全站 noindex；連結只在課堂內提供。
+
+## 第 1.5 期功能（2026-10-02）
+
+- **閱讀設定**（右下角）：字級／行距／黑體／純白底／安靜模式／關動畫／朗讀速度；每段「🔊 朗讀」用瀏覽器 TTS。
+- **版本疊加**：原文版／白話版／輕鬆版可同時開；白話版有 精簡／標準／滿版（注音＋詞語解釋）與「一次一段」。
+- **老師鎖定網址**：`lesson.html?id=…&level=easy,plain&task=basic&mode=step&scaffold=full`。
+- **每課可加的檔案**：`comic/NN.md`（逐格說明）、`glossary.json`、`tasks.json`（三層＋九宮格）、`quiz.json`（前測／出場券）、`extend/*.md`。格式見 `docs/superpowers/specs/` 與 `scripts/build-index.mjs`。
+- **注音版**：build 時用 `uv run --with pypinyin` 產 `plain.ruby.html`；破音字在 `scripts/zhuyin.py` 的 `OVERRIDES` 加。
+- **匿名統計**：`/api/event` 收 版本選擇／前測／出場券／回饋；老師看 `/teacher`（需 `TEACHER_KEY`，見 `docs/api.md`）。
+- 家長說明：`/parents`。
