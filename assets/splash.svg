@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <filter id="ink" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="7" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="90" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+    <radialGradient id="g" cx="45%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#1d1d1b" stop-opacity=".22"/>
+      <stop offset=".6" stop-color="#1d1d1b" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#1d1d1b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g filter="url(#ink)">
+    <ellipse cx="300" cy="300" rx="190" ry="150" fill="url(#g)"/>
+    <ellipse cx="380" cy="230" rx="70" ry="50" fill="#1d1d1b" opacity=".12"/>
+    <circle cx="150" cy="380" r="34" fill="#1d1d1b" opacity=".16"/>
+    <circle cx="470" cy="400" r="14" fill="#1d1d1b" opacity=".2"/>
+    <circle cx="120" cy="220" r="8" fill="#b8352a" opacity=".35"/>
+  </g>
+</svg>

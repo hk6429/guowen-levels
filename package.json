@@ -1,0 +1,11 @@
+{
+  "name": "guowen-levels",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-index.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "dev": "npm run build && npx -y serve -l 5173 ."
+  }
+}

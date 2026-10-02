@@ -156,3 +156,9 @@ guowen-levels/
 ## 12. 開放問題
 
 無。
+
+## 13. 視覺風格（2026-10-02 追加）
+
+- 國風潑墨：宣紙底色＋ SVG feTurbulence 紙紋，角落潑墨 SVG（`assets/splash.svg`），標題下墨筆底線，右上硃砂印「竹光」。
+- 字體 Noto Serif TC。強調色：硃砂紅（挑戰版）、靛藍（白話版）、竹綠（輕鬆版）。
+- Q 版角色四張（首頁書生、三個版本各一），頭身比 1:1，codex-image2 生成，去背後存 `assets/img/*.webp`（512px）。
