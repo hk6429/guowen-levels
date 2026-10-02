@@ -1,0 +1,10 @@
+# Cloudflare Pages 設定（wrangler 3）。部署：npx -y wrangler@3 pages deploy . --project-name guowen-levels --branch main
+# TEACHER_KEY 是 secret，不寫在這裡：npx -y wrangler@3 pages secret put TEACHER_KEY --project-name guowen-levels
+name = "guowen-levels"
+pages_build_output_dir = "."
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "DATA"
+id = "43ffcebb050e4f789c18246ab2c47f03"
+preview_id = "2b886f38a57e4ba58a917f6f43d66e97"

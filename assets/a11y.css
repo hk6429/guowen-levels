@@ -1,0 +1,220 @@
+/* ===== 無障礙閱讀層（特教支援）=====
+   所有開關都是 <html> 上的 class，由 a11y.js 讀 localStorage 後套上。
+   a11y-size-s / -m / -l / -xl   字級
+   a11y-wide                     行距寬
+   a11y-sans                     黑體
+   a11y-plain-bg                 純白底
+   a11y-quiet                    安靜模式（隱藏插圖與潑墨）
+   a11y-still                    停用動畫
+*/
+
+:root {
+  --a11y-accent: #2f4a7a;
+  --a11y-focus: #d97706;
+}
+
+/* ---------- 字級 / 行距 / 字體 ---------- */
+html.a11y-size-s  { font-size: 17px; }
+html.a11y-size-m  { font-size: 18px; }
+html.a11y-size-l  { font-size: 21px; }
+html.a11y-size-xl { font-size: 24px; }
+
+html.a11y-wide body { line-height: 2.2; }
+
+html.a11y-sans { --font: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+
+/* ---------- 純白底 ---------- */
+html.a11y-plain-bg body {
+  background: #fff;
+  color: #111;
+}
+html.a11y-plain-bg .content,
+html.a11y-plain-bg .lesson-card a,
+html.a11y-plain-bg .level-btn { background: #fff; }
+html.a11y-plain-bg .masthead h1::after { display: none; }
+html.a11y-plain-bg .splash { display: none; }
+
+/* ---------- 安靜模式：只藏裝飾，漫畫（img.comic）是內容，保留 ---------- */
+html.a11y-quiet .splash,
+html.a11y-quiet .masthead img.hero,
+html.a11y-quiet .level-btn img { display: none; }
+
+/* ---------- 停用動畫：系統設定一律尊重，手動開關同效 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* ---------- Focus 可見性（全站） ---------- */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+audio:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--a11y-focus);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- 閱讀設定：浮動按鈕 + 面板 ---------- */
+.a11y-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0 0.9rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: var(--a11y-accent);
+  border: 2px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.a11y-fab[aria-expanded="true"] { background: #1d1d1b; }
+
+.a11y-panel {
+  position: fixed;
+  right: 1rem;
+  bottom: 4.6rem;
+  z-index: 50;
+  width: 340px;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding: 1rem 1.1rem 1.2rem;
+  background: #fff;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.a11y-panel[hidden] { display: none; }
+.a11y-panel h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.a11y-panel .a11y-close {
+  font: inherit;
+  min-width: 44px;
+  min-height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.3em;
+  line-height: 1;
+}
+.a11y-group { margin: 0.55rem 0; }
+.a11y-group .a11y-label {
+  display: block;
+  font-size: 0.9em;
+  color: #444;
+  margin-bottom: 0.25rem;
+}
+.a11y-opts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.a11y-opts button, .a11y-reset {
+  font: inherit;
+  min-height: 44px;
+  padding: 0.3rem 0.9rem;
+  background: #f3f3f3;
+  color: #111;
+  border: 2px solid #bbb;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.a11y-opts button[aria-pressed="true"] {
+  background: var(--a11y-accent);
+  color: #fff;
+  border-color: var(--a11y-accent);
+}
+.a11y-reset { width: 100%; margin-top: 0.6rem; }
+
+/* ---------- 朗讀 ---------- */
+.a11y-tts-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.7rem;
+  background: rgba(47, 74, 122, 0.08);
+  border-radius: 8px;
+}
+.a11y-tts-bar button,
+.a11y-audio-rate button {
+  font: inherit;
+  font-size: 0.95rem;
+  min-height: 44px;
+  padding: 0.2rem 0.9rem;
+  background: #fff;
+  color: #111;
+  border: 2px solid var(--a11y-accent);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.a11y-tts-bar .a11y-tts-status { font-size: 0.9rem; color: #444; }
+
+.a11y-tts-btn {
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1;
+  vertical-align: middle;
+  margin-right: 0.45rem;
+  padding: 0.35rem 0.55rem;
+  background: #fff;
+  color: var(--a11y-accent);
+  border: 1.5px solid var(--a11y-accent);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.a11y-tts-btn[aria-pressed="true"] { background: var(--a11y-accent); color: #fff; }
+.a11y-speaking {
+  background: rgba(255, 221, 87, 0.45);
+  outline: 2px solid rgba(217, 119, 6, 0.7);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- 音檔速度 ---------- */
+.a11y-audio-rate {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin: -0.8rem 0 1.4rem;
+  font-size: 0.9rem;
+}
+.a11y-audio-rate button[aria-pressed="true"] { background: var(--a11y-accent); color: #fff; }
+
+/* ---------- 列印 ---------- */
+@media print {
+  .a11y-fab, .a11y-panel, .a11y-tts-bar, .a11y-tts-btn, .a11y-audio-rate,
+  .splash, .levels, .masthead img.hero, .level-btn img, .back, audio { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; }
+  body { background-image: none !important; }
+  main { max-width: none; padding: 0; }
+  .content { background: #fff; border: 0; padding: 0; min-height: 0; }
+  .content iframe { height: auto; }
+  img.comic, figure { page-break-inside: avoid; break-inside: avoid; }
+  .a11y-speaking { background: none; outline: none; }
+}

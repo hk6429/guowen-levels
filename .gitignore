@@ -3,3 +3,5 @@ node_modules/
 lessons/index.json
 .wrangler/
 .teacher-key
+lessons/**/plain.ruby.html
+.dev.vars
