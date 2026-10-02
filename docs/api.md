@@ -100,7 +100,7 @@ npx -y wrangler@3 pages deploy . --project-name guowen-levels --branch main
 ### 人工唯一一步：設定 `TEACHER_KEY`
 secret 不進 toml、不進 git：
 ```bash
-npx -y wrangler@3 pages secret put TEACHER_KEY --project-name guowen-levels
+npx -y wrangler@3 kv:key put --namespace-id 43ffcebb050e4f789c18246ab2c47f03 config:teacher_key "你的金鑰"
 ```
 貼上自訂金鑰；設完 **再部署一次** 才會被新的部署吃到（Pages secret 綁在部署當下）。`teacher.html` 頁尾也有這段說明。
 

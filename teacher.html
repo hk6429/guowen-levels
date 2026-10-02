@@ -120,7 +120,7 @@
   <details class="howto">
     <summary>如何設定金鑰</summary>
     <p>金鑰只存在瀏覽器 sessionStorage，關閉分頁即清除。伺服器端由 Cloudflare Pages 的 secret <code>TEACHER_KEY</code> 決定，在專案資料夾執行：</p>
-    <p><code>npx -y wrangler@3 pages secret put TEACHER_KEY --project-name guowen-levels</code></p>
+    <p><code>npx -y wrangler@3 kv:key put --namespace-id 43ffcebb050e4f789c18246ab2c47f03 config:teacher_key "你的金鑰"</code></p>
     <p>貼上你自訂的金鑰後，重新部署一次即生效。本頁出現「尚未設定 TEACHER_KEY」就是這一步還沒做。</p>
   </details>
 </main>

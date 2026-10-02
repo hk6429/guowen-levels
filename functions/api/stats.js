@@ -67,10 +67,12 @@ function aggregate(events) {
 }
 
 export async function onRequestGet({ request, env }) {
-  if (!env.TEACHER_KEY) return json({ error: 'TEACHER_KEY not set' }, 503);
+  // 金鑰來源：env.TEACHER_KEY（pages secret）或 KV 的 config:teacher_key（不受部署影響）
+  const teacherKey = env.TEACHER_KEY || (await env.DATA.get('config:teacher_key'));
+  if (!teacherKey) return json({ error: 'TEACHER_KEY not set' }, 503);
   const url = new URL(request.url);
   const key = url.searchParams.get('key') || '';
-  if (!safeEqual(key, env.TEACHER_KEY)) return json({ error: 'unauthorized' }, 401);
+  if (!safeEqual(key, teacherKey)) return json({ error: 'unauthorized' }, 401);
 
   const lesson = url.searchParams.get('lesson');
 
